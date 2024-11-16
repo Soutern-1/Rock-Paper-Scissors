@@ -3,7 +3,7 @@ import random
 
 # Screen configuration
 main = Tk()
-main.geometry("1000x500")
+main.geometry("700x250")
 main.config(bg = "white")
 main.title("Rock Paper Scissors")
 
@@ -29,13 +29,35 @@ extraInfo.grid(row=2,column=2,pady = 20)
 
 # if player picks rock
 # for all 3 picks of player, it uses random to choose a random choice taht the computer chooses
-# Then it edits the "playerChoiceLabel" and "computerChoiceLabel" to 
+# Then it edits the "playerChoiceLabel" and "computerChoiceLabel" to what they chose
+playerChoiceLabel = Label(main, text= f"You chose: -- ", bg = "white", font=("times new roman",14))
+computerChoiceLabel = Label(main, text= f"Computer chose: --", bg="white", font=("times new roman",14))
+
+# Functions for each of the outcomes of the game (the computer wins, the player wins, or it is a tie)
+def computerWins():
+    global computerscore, computerScoreLabel
+    extraInfo.config(text="Computer Won")
+    computerscore +=1
+    computerScoreLabel.config(text= f"Computer Score: {computerscore}")
+    print(playerscore,computerscore)
+
+def playerWins():
+    global playerscore, playerScoreLabel
+    extraInfo.config(text="Player Won")
+    playerscore +=1
+    playerScoreLabel.config(text= f"Player Score: {playerscore}")
+    print(playerscore,computerscore)
+
+
+def Tie():
+    extraInfo.config(text="Tie")
 
 def rockPick():
 
-    playerChoiceLabel.config(text=" Rock")
+    playerChoiceLabel.config(text="Player chose: Rock")
     computerPicked = random.choice(options)
-    computerChoiceLabel.config(text=computerPicked[0])
+    computerChoiceLabel.config(text=f"Computer chose: {computerPicked[0]}")
+
 
     if computerPicked[1] == 0:
         Tie()
@@ -48,10 +70,9 @@ def rockPick():
 
 def paperPick():
 
-    playerChoiceLabel.config(text=" Paper")
+    playerChoiceLabel.config(text="Player chose: Paper")
     computerPicked = random.choice(options)
-    computerChoiceLabel.config(text=computerPicked[0])
-
+    computerChoiceLabel.config(text=f"Computer chose: {computerPicked[0]}")
 
 
     if computerPicked[1] == 0:
@@ -63,11 +84,11 @@ def paperPick():
 
 # If player picks scissors
 
-def  scissorspick():
+def  scissorsPick():
 
-    playerChoiceLabel.config(text=" Scisssors")
+    playerChoiceLabel.config(text="Player chose: Scisssors")
     computerPicked = random.choice(options)
-    computerChoiceLabel.config(text=computerPicked[0])
+    computerChoiceLabel.config(text=f"Computer chose: {computerPicked[0]}")
 
     if computerPicked[1] == 0:
         computerWins()
@@ -78,9 +99,9 @@ def  scissorspick():
 
 # Creating the buttons for the 3 options of the player (rock paper and scissors)
 
-rockButton = Button(main, text= "Rock", bg = "white", font=("times new roman",14), command = rockPick())
-paperButton = Button(main, text ="Paper", bg = "white", font=("times new roman",14), command = paperPick())
-scissorsButton = Button(main, text= "Scissors", bg = "white", font=("times new roman",14), command = scissorspick())
+rockButton = Button(main, text= "Rock", bg = "white", font=("times new roman",14), command = rockPick)
+paperButton = Button(main, text ="Paper", bg = "white", font=("times new roman",14), command = paperPick)
+scissorsButton = Button(main, text= "Scissors", bg = "white", font=("times new roman",14), command = scissorsPick)
 
 
 # Placing the buttons on the screen
@@ -99,18 +120,13 @@ playerChoiceLabel.grid(row=4,column=1)
 computerChoiceLabel = Label(main, text= f"Computer chose: --", bg="white", font=("times new roman",14))
 computerChoiceLabel.grid(row=5,column=1)
 
-# Functions for each of the outcomes of the game (the computer wins, the player wins, or it is a tie)
-def computerWins():
-    extraInfo.config(text="Computer Won")
-    computerscore = computerscore + 1
+playerScoreLabel = Label(main, text= f"Player Score: {playerscore}", bg = "white", font=("times new roman",14))
+playerScoreLabel.grid(row=4,column=2)
 
-def playerWins():
-    extraInfo.config(text="Player Won")
-    playerscore = playerscore + 1
+#what computer chose
+computerScoreLabel = Label(main, text= f"Computer Score: {computerscore}", bg="white", font=("times new roman",14))
+computerScoreLabel.grid(row=5,column=2)
 
-
-def Tie():
-    extraInfo.config(text="Tie")
 
 
 main.mainloop()
